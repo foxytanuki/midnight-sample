@@ -8,7 +8,8 @@
     "pkgs/*"
   ],
   "scripts": {
-    "contract": "yarn workspace contract"
+    "contract": "yarn workspace contract",
+    "cli": "yarn workspace cli"
   },
   "keywords": [],
   "author": "",

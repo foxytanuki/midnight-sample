@@ -84,3 +84,9 @@ Fetching public parameters for k=10 [====================] 192.38 KiB / 192.38 K
   circuit "increment" (k=10, rows=29)  
 Overall progress [====================] 1/1   
 ```
+
+以下のコマンドでコントラクトをテストネットにデプロイする
+
+```bash
+yarn cli testnet-remote
+```
