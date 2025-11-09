@@ -45,18 +45,33 @@ You can do one of the following:
   3. Exit
 Which would you like to do? `;
 
+/**
+ * 既存のコントラクトインスタンスを作成するメソッド
+ * @param providers 
+ * @param rli 
+ * @returns 
+ */
 const join = async (providers: CounterProviders, rli: Interface): Promise<DeployedCounterContract> => {
   const contractAddress = await rli.question('What is the contract address (in hex)? ');
+  // joinContractメソッドを呼び出して既存のコントラクトインスタンスを作成する
   return await api.joinContract(providers, contractAddress);
 };
 
+/**
+ * 新たにデプロイするか、既存のコントラクトに参加するかを選択するメソッド
+ * @param providers 
+ * @param rli 
+ * @returns 
+ */
 const deployOrJoin = async (providers: CounterProviders, rli: Interface): Promise<DeployedCounterContract | null> => {
   while (true) {
     const choice = await rli.question(DEPLOY_OR_JOIN_QUESTION);
     switch (choice) {
       case '1':
+        // deployメソッドを呼び出す
         return await api.deploy(providers, { privateCounter: 0 });
       case '2':
+        // joinメソッドを呼び出す
         return await join(providers, rli);
       case '3':
         logger.info('Exiting...');
@@ -90,8 +105,15 @@ const mainLoop = async (providers: CounterProviders, rli: Interface): Promise<vo
   }
 };
 
+/**
+ * シードからウォレットインスタンスを作成するメソッド
+ * @param config 
+ * @param rli 
+ * @returns 
+ */
 const buildWalletFromSeed = async (config: Config, rli: Interface): Promise<Wallet & Resource> => {
   const seed = await rli.question('Enter your wallet seed: ');
+  // buildWalletAndWaitForFundsメソッドを呼び出す
   return await api.buildWalletAndWaitForFunds(config, seed, '');
 };
 
@@ -102,8 +124,15 @@ You can do one of the following:
   3. Exit
 Which would you like to do? `;
 
+/**
+ * ウォレットインスタンスを作成するメソッド
+ * @param config 
+ * @param rli 
+ * @returns 
+ */
 const buildWallet = async (config: Config, rli: Interface): Promise<(Wallet & Resource) | null> => {
   if (config instanceof StandaloneConfig) {
+    // スタンドアロンネットワークの場合、ジェネシスマイントウォレットから資金を取得
     return await api.buildWalletAndWaitForFunds(config, GENESIS_MINT_WALLET_SEED, '');
   }
   while (true) {
@@ -131,6 +160,12 @@ const mapContainerPort = (env: StartedDockerComposeEnvironment, url: string, con
   return mappedUrl.toString().replace(/\/+$/, '');
 };
 
+/**
+ * メインメソッド
+ * @param config 
+ * @param _logger 
+ * @param dockerEnv 
+ */
 export const run = async (config: Config, _logger: Logger, dockerEnv?: DockerComposeEnvironment): Promise<void> => {
   logger = _logger;
   api.setLogger(_logger);
@@ -146,9 +181,11 @@ export const run = async (config: Config, _logger: Logger, dockerEnv?: DockerCom
       config.proofServer = mapContainerPort(env, config.proofServer, 'counter-proof-server');
     }
   }
+  // シードからウォレットインスタンスを生成
   const wallet = await buildWallet(config, rli);
   try {
     if (wallet !== null) {
+      // プロバイダーを生成
       const providers = await api.configureProviders(wallet, config);
       await mainLoop(providers, rli);
     }
