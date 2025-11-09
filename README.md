@@ -91,6 +91,47 @@ Overall progress [====================] 1/1
 yarn contract test
 ```
 
+以下のようになればOK!
+
+```bash
+ RUN  v4.0.8 /workspaces/midnight-sample/my-mn-app/pkgs/contract
+
+ ✓ test/counter.test.ts (3 tests) 44ms
+   ✓ Counter smart contract (3)
+     ✓ generates initial ledger state deterministically 36ms
+     ✓ properly initializes ledger state and private state 3ms
+     ✓ increments the counter correctly 4ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  08:27:47
+   Duration  421ms (transform 95ms, setup 0ms, collect 233ms, tests 44ms, environment 0ms, prepare 13ms)
+
+JUNIT report written to /workspaces/midnight-sample/my-mn-app/pkgs/contract/reports/report.xml
+Done in 1.34s.
+```
+
+次にCLI用のTypeScriptファイルを以下のコマンドで生成する
+
+```bash
+yarn contract build
+```
+
+そしてCLI用のユニットテストコードを実行する
+
+```bash
+yarn cli test-api
+```
+
+以下のようになればOK!
+
+```bash
+Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  08:41:12
+   Duration  200.97s (transform 180ms, setup 72ms, collect 1.11s, tests 199.62s, environment 0ms, prepare 10ms)
+```
+
 以下のコマンドでコントラクトをテストネットにデプロイする
 
 ```bash
