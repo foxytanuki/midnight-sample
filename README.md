@@ -179,5 +179,29 @@ Counter contract deployed at: 020050e6bdae4c9e65023a252a6aba74323c1d9c1ba6e520f0
 Done in 90.16s.
 ```
 
+デプロイされたコントラクトアドレスを環境変数に追加する
+
+incrementメソッドだけを呼び出すコマンドを実行する
+
+```bash
+yarn cli increment
+```
+
+以下のようになればOK!
+
+```bash
+[12:33:37.176] INFO (47085): Incrementing...
+[12:34:34.270] INFO (47085): Transaction 000000000202acbcd05e9f19e5144acc5f97953255840b8b932fc71b84520e715b7ca900 added in block 2485067
+[12:34:34.271] INFO (47085): Increment transaction: 000000000202acbcd05e9f19e5144acc5f97953255840b8b932fc71b84520e715b7ca900 (block 2485067)
+Counter incremented. txId=000000000202acbcd05e9f19e5144acc5f97953255840b8b932fc71b84520e715b7ca900 block=2485067
+[12:34:34.271] INFO (47085): Checking contract ledger state...
+[12:34:34.462] INFO (47085): Ledger state: 1
+[12:34:34.463] INFO (47085): Current counter value: 1
+[12:34:34.463] INFO (47085): Current counter value: 1
+Current counter value: 1
+[12:34:34.463] INFO (47085): Not saving cache as sync cache was not defined
+Done in 128.20s.
+```
+
 ## 参考文献
 - [ブロックエクスプローラー](https://www.midnightexplorer.com/)
