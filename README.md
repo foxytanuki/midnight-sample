@@ -74,7 +74,7 @@ yarn
 以下のコマンドでビルドする
 
 ```bash
-yarn build
+yarn contract build
 ```
 
 以下のようになればOK!
